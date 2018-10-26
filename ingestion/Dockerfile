@@ -1,9 +1,9 @@
 FROM python:3.7
 
 ENV PYTHONUNBUFFERED 1
-COPY requirements_ingestion.txt .
-COPY weblogs.log .
-COPY ingestion.py .
+RUN mkdir /usr/src/ingestion
+WORKDIR /usr/src/ingestion
+COPY . .
 RUN pip install -r requirements_ingestion.txt
 EXPOSE 5672
 

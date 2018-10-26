@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import sys
 import pika
 import json
 import os
@@ -17,7 +18,7 @@ while True:
     except pika.exceptions.ConnectionClosed:
         print('Ingestion: RabbitMQ not up yet.')
         time.sleep(2)
-        
+
 print('Ingestion: Connection to RabbitMQ established')
 
 
@@ -28,7 +29,7 @@ channel.queue_declare(queue='log-analysis')
 
 # Read weblogs
 
-f = open('weblogs.log', 'r')
+f = open('weblogs/weblogs.log', 'r')
 
 while True:
     try:
@@ -46,8 +47,8 @@ while True:
             channel.basic_publish(exchange='',
                                   routing_key='log-analysis',
                                   body=body)
-        
-    except:
-        print("Unexpected error:" +  sys.exc_info()[0])
-    
+
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
 connection.close()
