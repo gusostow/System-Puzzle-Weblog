@@ -34,8 +34,6 @@ cur = conn.cursor()
 # main function that reads from RabbitMQ queue and stores it in database
 def callback(ch, method, properties, body):
     msg = json.loads(body)
-    # values = 'to_date(\'' + msg['day'] + \
-    #     '\', \'YYYY-MM-DD\')' + ', ' + msg['source'] + ', ' + msg['status']
     to_date = f'to_date(\'{msg["day"]}\', \'YYYY-MM-DD\')'
     source = f'\'{msg["source"]}\''
     status = msg['status']
