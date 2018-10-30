@@ -42,7 +42,7 @@ with open('weblogs/weblogs.log', 'r') as f:
                 day, status, source = parse_log(msg)
 
                 # Store in RabbitMQ
-                body = json.dumps({'day': str(day), 'status': status})
+                body = json.dumps({'day': str(day), 'status': status, 'source': source})
                 channel.basic_publish(exchange='',
                                       routing_key='log-analysis',
                                       body=body)
