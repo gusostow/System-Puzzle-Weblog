@@ -1,0 +1,17 @@
+version: '3'
+services:
+   ingestion:
+    build: ingestion/.
+    entrypoint:
+      - python
+      - -m
+      - unittest
+    env_file:
+      - env_file
+    volumes:
+      - ./tests:/usr/src/ingestion/tests
+    networks:
+      - tests_network
+networks:
+  tests_network:
+    driver: bridge
